@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>글자수 세기</title>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<style>
+			div {
+				margin-top: 10%;
+			}
+		</style>
+        <script>
+			$(document).ready(function() {
+				function getByte(str) {
+					return str.split('').map(s=>s.charCodeAt(0)).reduce((prev,c)=>(prev + ((c === 10) ? 2 : ((c >> 7) ? 2 : 1))), 0);
+				}
+				
+				$('#txt').on('input change', function() {
+					var txt = document.querySelector("#txt")
+					var text = "글자수 " + txt.textLength + " 바이트수 " + getByte(txt.value)
+					$('#text').html(text);
+				});
+
+				$(window).bind('beforeunload', function() {
+					return '정말 나가실껀가요?';
+				});
+			});
+        </script>
+    </head>
+    <body>
+        <div class="container">
+			<textarea class="form-control" id="txt" cols="40" rows="8" placeholder="글자수를 계산할 문자열을 입력해주세요."></textarea>
+			<h2 id="text">글자수 바이트수</h1>
+        </div>
+    </body>
+</html>
